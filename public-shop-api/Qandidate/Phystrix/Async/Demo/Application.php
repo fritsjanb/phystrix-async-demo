@@ -3,15 +3,14 @@
 namespace Qandidate\Phystrix\Async\Demo;
 
 use Clue\React\Buzz\Browser;
-use Odesk\Phystrix\AbstractCommand;
+use Odesk\Phystrix\AbstractAsyncCommand;
 use Odesk\Phystrix\ApcStateStorage;
 use Odesk\Phystrix\CircuitBreakerFactory;
 use Odesk\Phystrix\CommandMetricsFactory;
 use Odesk\Phystrix\CommandFactory;
+use Qandidate\Phystrix\Async\Demo\GetCatalogueCommand;
+use Qandidate\Phystrix\Async\Demo\GetInventoryStatusCommand;
 use Zend\Config\Config;
-
-// custom
-use Odesk\Phystrix\AbstractAsyncCommand;
 
 class Application
 {
@@ -30,14 +29,14 @@ class Application
 
     public function getCatalogue()
     {
-        $command = $this->phystrix->getCommand('Qandidate\\Phystrix\\Async\\Demo\\GetCatalogueCommand', $this->client, $this->timeoutFactory);
+        $command = $this->phystrix->getCommand(GetCatalogueCommand::class, $this->client, $this->timeoutFactory);
 
         return $command->execute();
     }
 
     public function getInventoryStatus()
     {
-        $command = $this->phystrix->getCommand('Qandidate\\Phystrix\\Async\\Demo\\GetInventoryStatusCommand', $this->client, $this->timeoutFactory);
+        $command = $this->phystrix->getCommand(GetInventoryStatusCommand::class, $this->client, $this->timeoutFactory);
 
         return $command->execute();
     }
